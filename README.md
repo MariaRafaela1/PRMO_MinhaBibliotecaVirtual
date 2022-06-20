@@ -2,7 +2,7 @@ Repositório de códigos do aplicativo Minha Biblioteca Virtual. Turma 914, Disc
 
 Autoras:
 
-#Evelly Nayara
-#Louise Jordana
-#Maria Rafaela
-#Natália Lara
+# Evelly Nayara
+# Louise Jordana
+# Maria Rafaela
+# Natália Lara
