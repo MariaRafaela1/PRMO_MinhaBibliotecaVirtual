@@ -13,7 +13,7 @@ class BarraInferior extends StatefulWidget {
 
 class _BarraInferiorState extends State<BarraInferior> {
   //telas
-  int _HomePage = 0;
+  int _PaginaAtual = 0;
   final List<Widget> _telas = [
     HomePage(),
     Biblioteca(),
@@ -24,47 +24,42 @@ class _BarraInferiorState extends State<BarraInferior> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _telas[_HomePage],
+      body: _telas[_PaginaAtual],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _HomePage,
-        onTap: aoMudarDeAba,
+        showUnselectedLabels: true,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.grey,
+        currentIndex: _PaginaAtual,
+        onTap: (int indice) {
+          setState(() {
+            _PaginaAtual = indice;
+          });
+        },
         items: [
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
-              color: Colors.black,
             ),
-            label: "home",
+            label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.local_library,
-              color: Colors.black,
-            ),
-            label: "biblioteca",
+            icon: Icon(Icons.local_library),
+            label: "Biblioteca",
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.favorite,
-              color: Colors.black,
             ),
-            label: "lista de desejos",
+            label: "Lista de Desejos",
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.account_circle,
-              color: Colors.black,
             ),
-            label: "perfil",
+            label: "Perfil",
           ),
         ],
       ),
     );
-  }
-
-  void aoMudarDeAba(int indice) {
-    setState(() {
-      _HomePage = indice;
-    });
   }
 }

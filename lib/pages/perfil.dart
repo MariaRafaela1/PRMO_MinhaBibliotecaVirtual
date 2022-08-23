@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:helloworld/pages/login.dart';
+import 'package:helloworld/pages/configurar_perfil.dart';
 
 class Perfil extends StatefulWidget {
   const Perfil({Key? key}) : super(key: key);
@@ -23,64 +25,74 @@ class _PerfilState extends State<Perfil> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Center(
-              child: Column(children: [
-                const Icon(
-                  Icons.account_circle,
-                  color: Colors.black,
-                  size: 150.0,
-                ),
-                const Text(
-                  'email@exemplo',
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
-                const Text(
-                  'Nome Exemplo',
-                  style: TextStyle(
-                    color: Color(0xFFF59382),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ]),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Column(children: [
+            const Icon(
+              Icons.account_circle,
+              color: Colors.black,
+              size: 150.0,
             ),
-            const SizedBox(height: 16),
-            Row(children: [
-              const Icon(
+            const Text(
+              'email@exemplo',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            const Text(
+              'Nome Exemplo',
+              style: TextStyle(
+                color: Color(0xFFF59382),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ]),
+          const SizedBox(height: 16),
+          Row(children: [
+            IconButton(
+              icon: Icon(
                 Icons.manage_accounts,
                 color: Colors.black,
-                size: 50.0,
+              ),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return ConfigurarPerfil();
+                }));
+              },
+            ),
+            const SizedBox(width: 8),
+            const Text(
+              'Editar perfil',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ]),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(
+                  Icons.logout,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return Login();
+                    },
+                  ));
+                },
               ),
               const SizedBox(width: 8),
               const Text(
-                'Editar perfil',
+                'Sair',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
-            ]),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                const Icon(
-                  Icons.logout,
-                  color: Colors.black,
-                  size: 50.0,
-                ),
-                const SizedBox(width: 8),
-                const Text(
-                  'Sair',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+            ],
+          ),
+        ]),
       ),
     );
   }

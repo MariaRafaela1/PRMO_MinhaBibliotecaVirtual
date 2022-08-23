@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:helloworld/pages/barra_inferior.dart';
+import 'package:helloworld/pages/cadastrar_usuario.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -15,13 +16,13 @@ class _LoginState extends State<Login> {
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(children: [
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Container(
             height: 250,
             width: 250,
-            child: Image.network('https://i.postimg.cc/nrhzMjDb/logo-app-MBV.png'),
+            child: Image.asset('assets/images/logo-appMBV.png'),
           ),
-          Row(children: [
+          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
             SizedBox(width: 16),
             const Text(
               'E-mail',
@@ -33,12 +34,19 @@ class _LoginState extends State<Login> {
             ),
           ]),
           SizedBox(height: 8),
-          Container(
-            color: Color(0xFFFABEB3),
-            height: 40,
+          TextFormField(
+            decoration: InputDecoration(
+              prefixIcon: const Icon(
+                Icons.email,
+                color: Colors.black,
+              ),
+              filled: true,
+              fillColor: Color(0xFFFFECE8),
+            ),
+            keyboardType: TextInputType.emailAddress,
           ),
           SizedBox(height: 8),
-          Row(children: [
+          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
             SizedBox(width: 16),
             const Text(
               'Senha',
@@ -49,9 +57,17 @@ class _LoginState extends State<Login> {
               ),
             ),
           ]),
-          Container(
-            color: Color(0xFFFABEB3),
-            height: 40,
+          SizedBox(height: 8),
+          TextFormField(
+            decoration: InputDecoration(
+              prefixIcon: const Icon(
+                Icons.lock_outline,
+                color: Colors.black,
+              ),
+              filled: true,
+              fillColor: Color(0xFFFFECE8),
+            ),
+            keyboardType: TextInputType.text,
           ),
           SizedBox(height: 16),
           ElevatedButton(
@@ -68,8 +84,39 @@ class _LoginState extends State<Login> {
               ),
             ),
             style: ElevatedButton.styleFrom(
-              primary: Color(0xFFFFE7B2),
+              primary: Color(0xFFFABEB3),
             ),
+          ),
+          Expanded(
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Não tem conta?',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                    ),
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(),
+                    child: Text(
+                      'Criar',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Color(0xFFF59382),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return const CadastrarUser();
+                      }));
+                    },
+                  ),
+                ]),
           ),
         ]),
       ),

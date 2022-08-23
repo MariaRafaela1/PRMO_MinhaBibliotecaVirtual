@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:helloworld/pages/detalhes.dart';
+import 'package:helloworld/domain/livro.dart';
 
-class Livro extends StatefulWidget {
-  final String imagem;
+class LivroBiblioteca extends StatefulWidget {
+  final Livro livro;
 
-  const Livro({
+  const LivroBiblioteca({
     Key? key,
-    required this.imagem,
+    required this.livro,
   }) : super(key: key);
 
   @override
-  _LivroState createState() => _LivroState();
+  _LivroBibliotecaState createState() => _LivroBibliotecaState();
 }
 
-class _LivroState extends State<Livro> {
+class _LivroBibliotecaState extends State<LivroBiblioteca> {
+  Livro get l => widget.livro;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -21,13 +24,13 @@ class _LivroState extends State<Livro> {
         Container(
           height: 100,
           width: 80,
-          child: Image.network(widget.imagem),
+          child: Image.network(l.imagem),
         ),
         SizedBox(height: 8),
         ElevatedButton(
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return const Detalhes();
+              return Detalhes(livro: l);
             }));
           },
           child: const Text(
