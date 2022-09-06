@@ -54,7 +54,7 @@ class _PerfilState extends State<Perfil> {
                 color: Colors.black,
               ),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                   return ConfigurarPerfil();
                 }));
               },
@@ -76,7 +76,7 @@ class _PerfilState extends State<Perfil> {
                   color: Colors.black,
                 ),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(
+                  Navigator.pushReplacement(context, MaterialPageRoute(
                     builder: (context) {
                       return Login();
                     },
