@@ -17,7 +17,7 @@ class _IntroState extends State<Intro> {
 
   carregarLogin() async {
     await Future.delayed(const Duration(seconds: 2));
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
       MaterialPageRoute(
         builder: (context) {
