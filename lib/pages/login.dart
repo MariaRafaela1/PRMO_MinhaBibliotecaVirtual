@@ -72,7 +72,7 @@ class _LoginState extends State<Login> {
           SizedBox(height: 16),
           ElevatedButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                 return const BarraInferior();
               }));
             },
@@ -110,7 +110,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(context,
+                      Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) {
                         return const CadastrarUser();
                       }));
