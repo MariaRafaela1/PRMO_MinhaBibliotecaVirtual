@@ -41,7 +41,7 @@ class _AdicionarState extends State<Adicionar> {
             autorTextField(),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                   return const BarraInferior();
                 }));
               },
