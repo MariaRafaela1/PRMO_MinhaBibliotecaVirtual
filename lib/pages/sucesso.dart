@@ -54,7 +54,7 @@ class _SucessoState extends State<Sucesso> {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.push(context,
+                          Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) {
                             return const Login();
                           }));
