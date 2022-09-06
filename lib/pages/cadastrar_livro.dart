@@ -56,7 +56,7 @@ class _CadastrarLivroState extends State<CadastrarLivro> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                   return const BarraInferior();
                 }));
               },
