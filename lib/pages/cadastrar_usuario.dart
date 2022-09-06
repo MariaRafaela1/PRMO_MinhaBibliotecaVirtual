@@ -103,7 +103,7 @@ class _CadastrarUserState extends State<CadastrarUser> {
           SizedBox(height: 16),
           ElevatedButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                 return const Sucesso();
               }));
             },
@@ -141,7 +141,7 @@ class _CadastrarUserState extends State<CadastrarUser> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(context,
+                      Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) {
                         return const Login();
                       }));
