@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.grey[100],
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(
+          Navigator.pushReplacement(context, MaterialPageRoute(
             builder: (context) {
               return const CadastrarLivro();
             },
