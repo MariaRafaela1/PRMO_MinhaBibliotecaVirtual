@@ -29,7 +29,7 @@ class _BibliotecaState extends State<Biblioteca> {
           padding: const EdgeInsets.all(16.0), child: buildListView(context)),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(
+          Navigator.pushReplacement(context, MaterialPageRoute(
             builder: (context) {
               return CadastrarLivro();
             },
