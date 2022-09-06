@@ -111,7 +111,7 @@ class _ConfigurarPerfilState extends State<ConfigurarPerfil> {
                   SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.push(context,
+                      Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) {
                         return const BarraInferior();
                       }));
