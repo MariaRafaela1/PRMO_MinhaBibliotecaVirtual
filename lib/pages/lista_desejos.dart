@@ -36,7 +36,7 @@ class _ListaDesejosState extends State<ListaDesejos> {
           color: Colors.black,
         ),
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(
+          Navigator.pushReplacement(context, MaterialPageRoute(
             builder: (context) {
               return Adicionar();
             },
