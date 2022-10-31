@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "F:\\mbv (2)\\mbv (2)\\mbv\\mbv\\mbv\\build\\image_picker_android\\intermediates\\res\\merged\\debug\\values-eu\\values-eu.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Aluno\\.gradle\\caches\\transforms-3\\67709332b1c17bb2f6aea4cfc2620009\\transformed\\core-1.8.0\\res\\values-eu\\values-eu.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "F:\\mbv (2)\\mbv (2)\\mbv\\mbv\\mbv\\build\\image_picker_android\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-eu\\values-eu.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Aluno\\.gradle\\caches\\transforms-3\\67709332b1c17bb2f6aea4cfc2620009\\transformed\\core-1.8.0\\res\\values-eu\\values-eu.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}

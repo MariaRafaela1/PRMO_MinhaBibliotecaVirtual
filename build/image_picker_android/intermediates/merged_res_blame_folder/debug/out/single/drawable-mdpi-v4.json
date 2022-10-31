@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "F:\\mbv (2)\\mbv (2)\\mbv\\mbv\\mbv\\build\\image_picker_android\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\notify_panel_notification_icon_bg.png",
+        "source": "C:\\Users\\Aluno\\.gradle\\caches\\transforms-3\\67709332b1c17bb2f6aea4cfc2620009\\transformed\\core-1.8.0\\res\\drawable-mdpi-v4\\notify_panel_notification_icon_bg.png"
+    },
+    {
+        "merged": "F:\\mbv (2)\\mbv (2)\\mbv\\mbv\\mbv\\build\\image_picker_android\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\notification_bg_low_normal.9.png",
+        "source": "C:\\Users\\Aluno\\.gradle\\caches\\transforms-3\\67709332b1c17bb2f6aea4cfc2620009\\transformed\\core-1.8.0\\res\\drawable-mdpi-v4\\notification_bg_low_normal.9.png"
+    },
+    {
+        "merged": "F:\\mbv (2)\\mbv (2)\\mbv\\mbv\\mbv\\build\\image_picker_android\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\notification_bg_normal.9.png",
+        "source": "C:\\Users\\Aluno\\.gradle\\caches\\transforms-3\\67709332b1c17bb2f6aea4cfc2620009\\transformed\\core-1.8.0\\res\\drawable-mdpi-v4\\notification_bg_normal.9.png"
+    },
+    {
+        "merged": "F:\\mbv (2)\\mbv (2)\\mbv\\mbv\\mbv\\build\\image_picker_android\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\notification_bg_low_pressed.9.png",
+        "source": "C:\\Users\\Aluno\\.gradle\\caches\\transforms-3\\67709332b1c17bb2f6aea4cfc2620009\\transformed\\core-1.8.0\\res\\drawable-mdpi-v4\\notification_bg_low_pressed.9.png"
+    },
+    {
+        "merged": "F:\\mbv (2)\\mbv (2)\\mbv\\mbv\\mbv\\build\\image_picker_android\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\notification_bg_normal_pressed.9.png",
+        "source": "C:\\Users\\Aluno\\.gradle\\caches\\transforms-3\\67709332b1c17bb2f6aea4cfc2620009\\transformed\\core-1.8.0\\res\\drawable-mdpi-v4\\notification_bg_normal_pressed.9.png"
+    }
+]
