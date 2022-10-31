@@ -23,7 +23,6 @@ class _SucessoState extends State<Sucesso> {
                 height: 200,
                 width: 200,
                 child: Image.asset('assets/images/logo-appMBV.png'),
-              
               ),
               Text(
                 'Sucesso!',

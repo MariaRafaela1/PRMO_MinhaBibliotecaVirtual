@@ -38,5 +38,5 @@ class _IntroState extends State<Intro> {
         ),
       ),
     );
-  }     
+  }
 }

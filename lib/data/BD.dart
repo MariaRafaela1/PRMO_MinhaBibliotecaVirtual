@@ -1,7 +1,7 @@
 import 'package:helloworld/domain/livro.dart';
 
 class BD {
-  static List<Livro> listaLivros = [
+  /*static List<Livro> listaLivros = [
     Livro(
       imagem:
           'https://lojasaraiva.vteximg.com.br/arquivos/ids/12103642/1006792064.jpg?v=637142227220900000',
@@ -110,5 +110,5 @@ class BD {
       isbn: '9788550802756',
       editora: 'Alta Books',
     ),
-  ];
+  ];*/
 }

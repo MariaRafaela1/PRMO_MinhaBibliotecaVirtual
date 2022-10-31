@@ -15,12 +15,20 @@ class _CadastrarLivroState extends State<CadastrarLivro> {
   ImagePicker imagePicker = ImagePicker();
   File? imagemSelecionada;
 
+  TextEditingController tituloController = TextEditingController();
+  TextEditingController autorController = TextEditingController();
+  TextEditingController editoraController = TextEditingController();
+  TextEditingController pgController = TextEditingController();
+  TextEditingController isbnController = TextEditingController();
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Adicionar livro',
+          'Cadastrar livro',
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
@@ -31,50 +39,157 @@ class _CadastrarLivroState extends State<CadastrarLivro> {
         child: ListView(
           children: <Widget>[
             seletorImg(),
+            //formulario(),
             SizedBox(
               height: 20,
             ),
-            tituloTextField(),
-            SizedBox(
-              height: 5,
-            ),
-            autorTextField(),
-            SizedBox(
-              height: 5,
-            ),
-            editoraTextField(),
-            SizedBox(
-              height: 5,
-            ),
-            pgTextField(),
-            SizedBox(
-              height: 5,
-            ),
-            isbnTextField(),
-            SizedBox(
-              height: 5,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                  return const BarraInferior();
-                }));
-              },
-              child: const Text(
-                'Salvar',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFABEB3),
-              ),
-            ),
+            buildBody(),
           ],
         ),
       ),
     );
+  }
+
+  buildBody() {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 48),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Campo Obrigatório";
+                    }
+
+                    return null;
+                  },
+                  controller: tituloController,
+                  decoration: const InputDecoration(
+                    labelText: 'Título',
+                    helperText: '',
+                    hintText: 'Título do livro',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                      borderSide:
+                          BorderSide(color: Colors.amberAccent, width: 1),
+                    ),
+                  )),
+              const SizedBox(height: 6),
+              TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Campo Obrigatório";
+                    }
+
+                    return null;
+                  },
+                  controller: autorController,
+                  decoration: const InputDecoration(
+                    labelText: 'Autor(a)',
+                    helperText: '',
+                    hintText: 'Nome do Autor(a)',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                      borderSide:
+                          BorderSide(color: Colors.amberAccent, width: 1),
+                    ),
+                  )),
+              const SizedBox(height: 6),
+              TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Campo Obrigatório";
+                    }
+
+                    return null;
+                  },
+                  controller: editoraController,
+                  decoration: const InputDecoration(
+                    labelText: 'Editora',
+                    helperText: '',
+                    hintText: 'Nome da Editora',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                      borderSide:
+                          BorderSide(color: Colors.amberAccent, width: 1),
+                    ),
+                  )),
+              const SizedBox(height: 6),
+              TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Campo Obrigatório";
+                    }
+
+                    return null;
+                  },
+                  controller: pgController,
+                  decoration: const InputDecoration(
+                    labelText: 'Páginas',
+                    helperText: '',
+                    hintText: 'Número de Páginas',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                      borderSide:
+                          BorderSide(color: Colors.amberAccent, width: 1),
+                    ),
+                  )),
+              const SizedBox(height: 6),
+              TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Campo Obrigatório";
+                    }
+
+                    return null;
+                  },
+                  controller: isbnController,
+                  decoration: const InputDecoration(
+                    labelText: 'ISBN',
+                    helperText: '',
+                    hintText: 'Número do ISBN',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                      borderSide:
+                          BorderSide(color: Colors.amberAccent, width: 1),
+                    ),
+                  )),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: onPressed,
+                style:
+                    ElevatedButton.styleFrom(primary: const Color(0xFFFABEB3)),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 12.0),
+                  child: Text(
+                    'Salvar',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void onPressed() {
+    String autorDigitado = autorController.text;
+    String tituloDigitado = tituloController.text;
+
+    if (_formKey.currentState!.validate()) {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+        return const BarraInferior();
+      }));
+    }
   }
 
   Widget seletorImg() {
@@ -131,12 +246,12 @@ class _CadastrarLivroState extends State<CadastrarLivro> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              FlatButton.icon(
+              IconButton(
                 icon: Icon(Icons.image),
                 onPressed: () {
                   foto();
                 },
-                label: Text('Galeria'),
+                //label: Text('Galeria'),
               ),
             ],
           ),
@@ -152,100 +267,5 @@ class _CadastrarLivroState extends State<CadastrarLivro> {
       setState(() {
         imagemSelecionada = File(imagemTemporaria.path);
       });
-  }
-
-  Widget tituloTextField() {
-    return TextFormField(
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Color(0xFFFABEB3),
-            width: 2,
-          ),
-        ),
-        labelText: 'Título',
-        helperText: '',
-        hintText: 'Título do livro',
-      ),
-    );
-  }
-
-  Widget autorTextField() {
-    return TextFormField(
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Color(0xFFFABEB3),
-            width: 2,
-          ),
-        ),
-        labelText: 'Autor(a)',
-        helperText: '',
-        hintText: 'Autor(a) do livro',
-      ),
-    );
-  }
-
-  Widget editoraTextField() {
-    return TextFormField(
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Color(0xFFFABEB3),
-            width: 2,
-          ),
-        ),
-        labelText: 'Editora',
-        helperText: '',
-        hintText: 'Editora',
-      ),
-    );
-  }
-
-  Widget pgTextField() {
-    return TextFormField(
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Color(0xFFFABEB3),
-            width: 2,
-          ),
-        ),
-        labelText: 'Páginas',
-        helperText: '',
-        hintText: 'Quantidade de páginas',
-      ),
-    );
-  }
-
-  Widget isbnTextField() {
-    return TextFormField(
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Color(0xFFFABEB3),
-            width: 2,
-          ),
-        ),
-        labelText: 'ISBN',
-        helperText: '',
-        hintText: 'ISBN',
-      ),
-    );
   }
 }

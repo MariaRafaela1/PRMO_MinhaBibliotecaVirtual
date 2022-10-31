@@ -3,6 +3,7 @@ import 'package:helloworld/widget/livro_biblioteca.dart';
 import 'package:helloworld/domain/livro.dart';
 import 'package:helloworld/data/BD.dart';
 import 'package:helloworld/pages/cadastrar_livro.dart';
+import '../data/livro_dao.dart';
 
 class Biblioteca extends StatefulWidget {
   const Biblioteca({Key? key}) : super(key: key);
@@ -12,8 +13,6 @@ class Biblioteca extends StatefulWidget {
 }
 
 class _BibliotecaState extends State<Biblioteca> {
-  List<Livro> lista = BD.listaLivros;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,8 +24,8 @@ class _BibliotecaState extends State<Biblioteca> {
           style: TextStyle(color: Color(0xFF000000)),
         ),
       ),
-      body: Padding(
-          padding: const EdgeInsets.all(16.0), child: buildListView(context)),
+      body:
+          Padding(padding: const EdgeInsets.all(16.0), child: buildListView()),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushReplacement(context, MaterialPageRoute(
@@ -44,16 +43,27 @@ class _BibliotecaState extends State<Biblioteca> {
     );
   }
 
-  buildListView(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, childAspectRatio: 0.75),
-      itemCount: lista.length,
-      itemBuilder: (context, index) {
-        return LivroBiblioteca(
-          livro: lista[index],
-        );
-      },
-    );
+  buildListView() {
+    Future<List<Livro>> futureLista = LivroDao().listarlivros();
+
+    return FutureBuilder<List<Livro>>(
+        future: futureLista,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<Livro> lista = snapshot.data ?? [];
+
+            return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3, childAspectRatio: 0.75),
+              itemCount: lista.length,
+              itemBuilder: (context, index) {
+                return LivroBiblioteca(
+                  livro: lista[index],
+                );
+              },
+            );
+          }
+          return const Center(child: CircularProgressIndicator());
+        });
   }
 }

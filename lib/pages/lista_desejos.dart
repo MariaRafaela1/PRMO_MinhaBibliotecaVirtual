@@ -3,6 +3,7 @@ import 'package:helloworld/widget/livros_lista.dart';
 import 'package:helloworld/pages/adicionar_livro.dart';
 import 'package:helloworld/domain/livro.dart';
 import 'package:helloworld/data/BD.dart';
+import '../data/livro_dao.dart';
 
 class ListaDesejos extends StatefulWidget {
   const ListaDesejos({Key? key}) : super(key: key);
@@ -12,8 +13,6 @@ class ListaDesejos extends StatefulWidget {
 }
 
 class _ListaDesejosState extends State<ListaDesejos> {
-  List<Livro> lista = BD.listaLivros;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +27,7 @@ class _ListaDesejosState extends State<ListaDesejos> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: buildListView(context),
+        child: buildListView(),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(
@@ -47,14 +46,25 @@ class _ListaDesejosState extends State<ListaDesejos> {
     );
   }
 
-  buildListView(BuildContext context) {
-    return ListView.builder(
-      itemCount: lista.length,
-      itemBuilder: (context, index) {
-        return LivrosCard(
-          livro: lista[index],
-        );
-      },
-    );
+  buildListView() {
+    Future<List<Livro>> futureLista = LivroDao().listarlivros();
+
+    return FutureBuilder<List<Livro>>(
+        future: futureLista,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<Livro> lista = snapshot.data ?? [];
+
+            return ListView.builder(
+              itemCount: lista.length,
+              itemBuilder: (context, index) {
+                return LivrosCard(
+                  livro: lista[index],
+                );
+              },
+            );
+          }
+          return const Center(child: CircularProgressIndicator());
+        });
   }
 }

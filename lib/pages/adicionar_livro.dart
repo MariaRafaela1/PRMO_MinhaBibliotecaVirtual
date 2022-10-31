@@ -15,6 +15,11 @@ class _AdicionarState extends State<Adicionar> {
   ImagePicker imagePicker = ImagePicker();
   File? imagemSelecionada;
 
+  TextEditingController autorController = TextEditingController();
+  TextEditingController tituloController = TextEditingController();
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,32 +39,85 @@ class _AdicionarState extends State<Adicionar> {
             SizedBox(
               height: 20,
             ),
-            tituloTextField(),
-            SizedBox(
-              height: 5,
-            ),
-            autorTextField(),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                  return const BarraInferior();
-                }));
-              },
-              child: const Text(
-                'Salvar',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFABEB3),
-              ),
-            ),
+            buildBody(),
           ],
         ),
       ),
     );
+  }
+
+  buildBody() {
+    return SafeArea(
+        child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 48),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Campo Obrigatório";
+                  }
+
+                  return null;
+                },
+                controller: tituloController,
+                decoration: const InputDecoration(
+                  labelText: 'Título',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                    borderSide: BorderSide(color: Colors.amberAccent, width: 1),
+                  ),
+                )),
+            const SizedBox(height: 16),
+            TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Campo Obrigatório";
+                  }
+
+                  return null;
+                },
+                controller: autorController,
+                decoration: const InputDecoration(
+                  labelText: 'Autor(a)',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                    borderSide: BorderSide(color: Colors.amberAccent, width: 1),
+                  ),
+                )),
+            const SizedBox(height: 32),
+            ElevatedButton(
+              onPressed: onPressed,
+              style: ElevatedButton.styleFrom(primary: const Color(0xFFFABEB3)),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(vertical: 12.0),
+                child: Text(
+                  'Salvar',
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    ));
+  }
+
+  void onPressed() {
+    String autorDigitado = autorController.text;
+    String tituloDigitado = tituloController.text;
+
+    if (_formKey.currentState!.validate()) {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+        return const BarraInferior();
+      }));
+    }
   }
 
   Widget seletorImg() {
@@ -116,12 +174,12 @@ class _AdicionarState extends State<Adicionar> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              FlatButton.icon(
+              IconButton(
                 icon: Icon(Icons.image),
                 onPressed: () {
                   foto();
                 },
-                label: Text('Galeria'),
+            //  label: Text('Galeria'),
               ),
             ],
           ),
@@ -138,42 +196,4 @@ class _AdicionarState extends State<Adicionar> {
         imagemSelecionada = File(imagemTemporaria.path);
       });
   }
-
-  Widget tituloTextField() {
-    return TextFormField(
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Color(0xFFFABEB3),
-            width: 2,
-          ),
-        ),
-        labelText: 'Título',
-        helperText: '',
-        hintText: 'Título do livro',
-      ),
-    );
-  }
-
-  Widget autorTextField() {
-    return TextFormField(
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Color(0xFFFABEB3),
-            width: 2,
-          ),
-        ),
-        labelText: 'Autor(a)',
-        helperText: '',
-        hintText: 'Autor(a) do livro',
-      ),
-    );
-  }
-
+}
