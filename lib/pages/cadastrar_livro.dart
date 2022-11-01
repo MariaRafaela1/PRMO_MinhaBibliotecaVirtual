@@ -182,8 +182,11 @@ class _CadastrarLivroState extends State<CadastrarLivro> {
   }
 
   void onPressed() {
-    String autorDigitado = autorController.text;
     String tituloDigitado = tituloController.text;
+    String autorDigitado = autorController.text;
+    String editoraDigitado = editoraController.text;
+    String pgDigitado = pgController.text;
+    String isbnDigitado = isbnController.text;
 
     if (_formKey.currentState!.validate()) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
