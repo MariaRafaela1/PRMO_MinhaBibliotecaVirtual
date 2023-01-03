@@ -23,6 +23,10 @@ dependencies:
   cupertino_icons: ^1.0.5
   path:
   sqflite:
+  http:
+  latlong: ^0.6.1
+  flutter_map: any
+  flutter_map_marker_cluster: any
 
 dev_dependencies:
   flutter_test:

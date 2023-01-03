@@ -4,6 +4,9 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:helloworld/pages/barra_inferior.dart';
 
+import '../data/livro_dao.dart';
+import '../domain/livro.dart';
+
 class CadastrarLivro extends StatefulWidget {
   const CadastrarLivro({Key? key}) : super(key: key);
 
@@ -181,18 +184,42 @@ class _CadastrarLivroState extends State<CadastrarLivro> {
     );
   }
 
-  void onPressed() {
+  void onPressed() async {
+   String autorDigitado = autorController.text;
     String tituloDigitado = tituloController.text;
-    String autorDigitado = autorController.text;
     String editoraDigitado = editoraController.text;
-    String pgDigitado = pgController.text;
+    double pgDigitado = double.parse(pgController.text);
     String isbnDigitado = isbnController.text;
 
+    Livro livroCriado = Livro(
+      titulo: tituloDigitado,
+      autor: autorDigitado,
+      editora: editoraDigitado,
+      numPaginas: pgDigitado,
+      isbn: isbnDigitado,
+      imagem:
+          'https://amici.com.br/wp-content/uploads/sites/83/2020/04/imagem-indispon%C3%ADvel.jpg',
+    );
+    await LivroDao().salvarLivro(livro: livroCriado);
     if (_formKey.currentState!.validate()) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
         return const BarraInferior();
       }));
+    } else {
+      showSnackBar("Erro na validação");
     }
+  }
+
+  showSnackBar(String msg) {
+    final snackBar = SnackBar(
+      behavior: SnackBarBehavior.floating,
+      margin: const EdgeInsets.symmetric(
+        vertical: 80,
+        horizontal: 32,
+      ),
+      content: Text(msg),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   Widget seletorImg() {

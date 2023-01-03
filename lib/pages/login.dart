@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:helloworld/pages/barra_inferior.dart';
 import 'package:helloworld/pages/cadastrar_usuario.dart';
 
+import '../data/usuario_dao.dart';
+
+
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -152,15 +155,14 @@ class _LoginState extends State<Login> {
     );
   }
 
-  void onPressed() {
-    String userDigitado = userController.text;
-    String passwordDigitado = passwordController.text;
-
-    String user = 'nome@exemplo';
-    String password = '123456';
-
+  Future<void> onPressed() async {
     if (_formKey.currentState!.validate()) {
-      if (userDigitado == user && passwordDigitado == password) {
+      String user = userController.text;
+      String pwd = passwordController.text;
+
+      bool resultado = await UsuarioDao().autenticar(usuario: user, senha: pwd);
+
+      if (resultado) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -170,14 +172,16 @@ class _LoginState extends State<Login> {
           ),
         );
       } else {
-        final snackbar = const SnackBar(
+        final msg = SnackBar(
           behavior: SnackBarBehavior.floating,
           content: Text(
-            'Usuario ou/e Senha incorreto(s)!',
+            ("Usuario/Senha incorretos"),
           ),
         );
-        ScaffoldMessenger.of(context).showSnackBar(snackbar);
+        ScaffoldMessenger.of(context).showSnackBar(msg);
       }
+    } else {
+      print("Formulário invalido");
     }
   }
 }

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:helloworld/pages/login.dart';
 import 'package:helloworld/pages/sucesso.dart';
+import 'package:helloworld/data/address_api.dart';
+import 'package:helloworld/domain/address.dart';
+
+import '../data/usuario_dao.dart';
+import '../domain/usuario.dart';
 
 class CadastrarUser extends StatefulWidget {
   const CadastrarUser({Key? key}) : super(key: key);
@@ -13,6 +18,9 @@ class _CadastrarUserState extends State<CadastrarUser> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController cepController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController bairroController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -141,6 +149,73 @@ class _CadastrarUserState extends State<CadastrarUser> {
               ),
               keyboardType: TextInputType.text,
             ),
+            const SizedBox(height: 30),
+            Row(children: [
+              const Text(
+                'CEP',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                ),
+              ),
+            ]),
+            SizedBox(height: 8),
+            TextFormField(
+              controller: cepController,
+              onEditingComplete: onEditingComplete,
+              decoration: const InputDecoration(
+                  prefixIcon: const Icon(
+                    Icons.markunread_mailbox,
+                    color: Colors.black,
+                  ),
+                  filled: true,
+                  fillColor: Color(0xFFFFECE8)),
+            ),
+            const SizedBox(height: 30),
+            Row(children: [
+              const Text(
+                'Endereço',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                ),
+              ),
+            ]),
+            SizedBox(height: 8),
+            TextFormField(
+              controller: addressController,
+              decoration: const InputDecoration(
+                  prefixIcon: const Icon(
+                    Icons.apartment,
+                    color: Colors.black,
+                  ),
+                  filled: true,
+                  fillColor: Color(0xFFFFECE8)),
+            ),
+            const SizedBox(height: 30),
+            Row(children: [
+              const Text(
+                'Bairro',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                ),
+              ),
+            ]),
+            SizedBox(height: 8),
+            TextFormField(
+              controller: bairroController,
+              decoration: const InputDecoration(
+                  prefixIcon: const Icon(
+                    Icons.pin_drop,
+                    color: Colors.black,
+                  ),
+                  filled: true,
+                  fillColor: Color(0xFFFFECE8)),
+            ),
             SizedBox(height: 16),
             ElevatedButton(
               onPressed: onPressed,
@@ -192,15 +267,42 @@ class _CadastrarUserState extends State<CadastrarUser> {
     );
   }
 
-  void onPressed() {
-    String nomeDigitado = nameController.text;
-    String emailDigitado = emailController.text;
-    String senhaDigitada = passwordController.text;
-
+  void onPressed() async {
     if (_formKey.currentState!.validate()) {
+      String nomeDigitado = nameController.text;
+      String emailDigitado = emailController.text;
+      String senhaDigitada = passwordController.text;
+
+      Usuario userCriado = Usuario(
+          email: emailDigitado, senha: senhaDigitada, nome: nomeDigitado);
+      await UsuarioDao().salvarUsuario(usuario: userCriado);
+
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
         return const Sucesso();
       }));
+    } else {
+      showSnackBar("Erro na validação");
     }
+  }
+
+  showSnackBar(String msg) {
+    final snackBar = SnackBar(
+      behavior: SnackBarBehavior.floating,
+      margin: const EdgeInsets.symmetric(
+        vertical: 80,
+        horizontal: 32,
+      ),
+      content: Text(msg),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+
+  Future<void> onEditingComplete() async {
+    String cep = cepController.text;
+    Address address = await AddressApi().findAddressByCep(cep);
+
+    addressController.text = address.logradouro;
+    bairroController.text = address.bairro;
   }
 }

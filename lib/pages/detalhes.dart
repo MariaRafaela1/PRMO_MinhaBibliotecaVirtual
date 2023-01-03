@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:helloworld/domain/livro.dart';
+import 'package:helloworld/pages/resultados.dart';
+
+import '../data/bookapi.dart';
+import 'package:helloworld/domain/livro_api.dart';
 
 class Detalhes extends StatefulWidget {
   final Livro livro;
@@ -134,10 +138,30 @@ class _DetalhesState extends State<Detalhes> {
                 ),
               ),
             ),
+            ElevatedButton(
+              onPressed: onPressed,
+              child: const Text(
+                'Ver mais livros do autor',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xFFFABEB3),
+              ),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> onPressed() async {
+    List<LivroGoogle> books = await LivroApi().buscarLivrosAutor(l.autor);
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return Resultados(lista: books,);
+    }));
   }
 
   Widget listaSuspensa() {

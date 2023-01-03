@@ -5,6 +5,10 @@ import 'package:helloworld/widget/livro_home.dart';
 import 'package:helloworld/domain/livro.dart';
 import 'package:helloworld/data/BD.dart';
 
+import 'package:helloworld/data/bookapi.dart';
+import 'package:helloworld/pages/resultados.dart';
+import 'package:helloworld/domain/livro_api.dart';
+
 import '../data/livro_dao.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,6 +21,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  TextEditingController tituloController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,6 +75,7 @@ class _HomePageState extends State<HomePage> {
 
   buildColumn(List<Livro> lista) {
     return Column(children: [
+      buildTextField(context),
       Row(children: [
         const Text(
           'Lendo',
@@ -163,6 +169,13 @@ class _HomePageState extends State<HomePage> {
     ]);
   }
 
+  Future<void> onChanged(String titulo) async {
+    List<LivroGoogle> books = await LivroApi().buscarLivrosTitulo(titulo);
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return Resultados(lista: books);
+    }));
+  }
+
   buildListView(List<Livro> lista) {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
@@ -172,6 +185,40 @@ class _HomePageState extends State<HomePage> {
           livro: lista[index],
         );
       },
+    );
+  }
+
+  Widget buildTextField(BuildContext context) {
+    String titulo = tituloController.text;
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
+        controller: tituloController,
+        onChanged: (value) {
+          titulo = value;
+        },
+        decoration: InputDecoration(
+            suffixIcon: GestureDetector(
+              onTap: () {
+                onChanged(titulo);
+              },
+              child: Icon(
+                Icons.search_rounded,
+                color: Color(0xFFFABEB3),
+                size: 40,
+              ),
+            ),
+            hintText: 'Buscar livros',
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Color(0xFFFABEB3),
+                ),
+                borderRadius: BorderRadius.circular(20)),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFFFABEB3)),
+                borderRadius: BorderRadius.circular(20))),
+      ),
     );
   }
 }
